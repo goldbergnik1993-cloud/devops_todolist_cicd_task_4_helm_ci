@@ -99,7 +99,7 @@ jobs:
         name: helm-chart
         path: .
     - name: install helm
-      uses: azure/setup-helm@v1
+      uses: azure/setup-helm@v3
     - name: lint helm chart
       run: |
         helm lint ./todoapp
