@@ -4,9 +4,9 @@ run-name: ${{ github.actor }} - ${{ github.ref_name}} -${{ github.sha }}
 
 on:
   push:
-    branches: ["main"]
+    branches: ["dev"]
   pull_request:
-    branches: ["main"]
+    branches: ["dev"]
 
 env:
   PythonVersion: 3.8
@@ -58,7 +58,7 @@ jobs:
 
   docker-ci:
     runs-on: ubuntu-latest
-    if: ${{ github.ref_name == 'main' }}
+    if: ${{ github.ref_name == 'dev' }}
     needs: python-ci
     steps:
 
@@ -89,7 +89,7 @@ jobs:
 
   helm-ci:
     runs-on: ubuntu-latest
-    if: ${{ github.ref_name == 'main' }}
+    if: ${{ github.ref_name == 'dev' }}
     needs: docker-ci
     name: helm-ci
     steps:
