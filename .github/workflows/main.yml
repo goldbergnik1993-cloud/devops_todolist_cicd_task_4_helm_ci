@@ -5,7 +5,7 @@ run-name: ${{ github.actor }} - ${{ github.ref_name}} -${{ github.sha }}
 on:
   push:
     branches: ["main"]
-  pull_request:
+  pull_request: 
     branches: ["main"]
 
 env:
