@@ -58,7 +58,6 @@ jobs:
 
   docker-ci:
     runs-on: ubuntu-latest
-    if: ${{ github.ref_name == 'dev' }}
     needs: python-ci
     steps:
 
@@ -89,7 +88,6 @@ jobs:
 
   helm-ci:
     runs-on: ubuntu-latest
-    if: ${{ github.ref_name == 'dev' }}
     needs: docker-ci
     name: helm-ci
     steps:
