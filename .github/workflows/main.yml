@@ -90,7 +90,7 @@ jobs:
   helm-ci:
     runs-on: ubuntu-latest
     if: ${{ github.ref_name == 'main' }}
-    needs: python-ci
+    needs: docker-ci
     name: helm-ci
     steps:
     - name: Download helm chart
