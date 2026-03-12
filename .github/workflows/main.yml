@@ -80,3 +80,37 @@ jobs:
         push: true
         context: ./src
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DockerImageName }}:${{ github.sha }}
+
+    - name: upload helm chart
+      uses: actions/upload-artifact@v4
+      with:
+        name: helm-chart
+        path: ${{ github.workspace }}/helm-charts
+
+  helm-ci:
+    runs-on: ubuntu-latest
+    if: ${{ github.ref_name == 'main' }}
+    needs: docker-ci
+    name: helm-ci
+    steps:
+    - name: Download helm chart
+      uses: actions/download-artifact@v4
+      with:
+        name: helm-chart
+        path: .
+    - name: install helm
+      uses: azure/setup-helm@v3
+    - name: lint helm chart
+      run: |
+        helm lint ./todoapp
+    - name: template helm chart
+      run: |
+        helm template ./todoapp
+    - name: package helm chart
+      run: |
+        helm package ./todoapp
+    - name: upload helm chart to artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: helm-chart-package
+        path: ./*.tgz
